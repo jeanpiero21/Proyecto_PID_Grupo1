@@ -1,5 +1,14 @@
 # Resultados YOLOv8s
 
+## Contenido
+
+- `METRICAS/metricas_validacion_yolo.csv`: resultado global de validación del
+  entrenamiento.
+- `METRICAS/metricas_12_casos_yolo.csv`: evaluación por imagen sobre los 12
+  casos comunes con MATLAB.
+- `PREDICCIONES_TEST/`: archivos de detección que puede consumir MATLAB para
+  evaluar el conjunto de prueba completo.
+
 `METRICAS/metricas_validacion_yolo.csv` transcribe la validación final guardada
 en la salida de `entrenamiento_evaluacion_yolov8.ipynb`. Corresponde al mejor peso luego de 50 épocas:
 1 618 imágenes y 92 808 instancias de validación.
