@@ -25,6 +25,15 @@ las 12 imágenes del entregable. En sus columnas principales, la clase positiva
 es `space-occupied`; las columnas terminadas en `_deteccion_global` conservan la
 evaluación conjunta de ambas clases.
 
-Las 12 imágenes finales están en
-`03_IMAGENES_REFERENCIALES/03_FINALES/YOLO` y fueron generadas por
+Las imágenes finales están separadas en:
+
+- `03_IMAGENES_REFERENCIALES/03_FINALES/YOLO/DETECCIONES`: predicciones
+  directas del modelo, con cajas, clases, confianza, ocupación y métricas.
+- `03_IMAGENES_REFERENCIALES/03_FINALES/YOLO/EVALUACION`: contraste con la
+  anotación real mediante verdaderos positivos, falsos positivos y falsos
+  negativos.
+- `03_IMAGENES_REFERENCIALES/03_FINALES/YOLO/DEMO`: demostración individual
+  producida por `probar.py`.
+
+Las primeras dos carpetas fueron generadas por
 `scripts_auxiliares/generar_comparativas.py` sin volver a entrenar el modelo.

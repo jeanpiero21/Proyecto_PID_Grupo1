@@ -73,7 +73,8 @@ print("Presiona cualquier tecla en la imagen para cerrarla y guardar.")
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
-salida = raiz_entrega / '03_IMAGENES_REFERENCIALES' / '03_FINALES' / 'YOLO' / \
+salida = raiz_entrega / '03_IMAGENES_REFERENCIALES' / '03_FINALES' / 'YOLO' / 'DEMO' / \
     'resultado_ocupacion_pklot.jpg'
+salida.parent.mkdir(parents=True, exist_ok=True)
 cv2.imwrite(str(salida), imagen_expandida)
 print("Imagen guardada como 'resultado_ocupacion_pklot.jpg'")

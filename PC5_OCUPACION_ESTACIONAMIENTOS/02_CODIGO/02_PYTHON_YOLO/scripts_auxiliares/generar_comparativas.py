@@ -6,7 +6,8 @@ Entradas:
   - resultados visuales y métricas ya obtenidos con MATLAB
 
 Salidas:
-  - 03_IMAGENES_REFERENCIALES/03_FINALES/YOLO
+  - 03_IMAGENES_REFERENCIALES/03_FINALES/YOLO/DETECCIONES
+  - 03_IMAGENES_REFERENCIALES/03_FINALES/YOLO/EVALUACION
   - 03_IMAGENES_REFERENCIALES/03_FINALES/COMPARACION/MATLAB_VS_YOLO
   - 04_RESULTADOS/02_YOLO/METRICAS/metricas_12_casos_yolo.csv
   - 04_RESULTADOS/03_COMPARACION/comparacion_matlab_vs_yolo.csv
@@ -235,7 +236,9 @@ def main() -> None:
     args = argumentos()
     carpeta_codigo = Path(__file__).resolve().parent.parent
     entrega = carpeta_codigo.parent.parent
-    salida_yolo = entrega / "03_IMAGENES_REFERENCIALES" / "03_FINALES" / "YOLO"
+    raiz_yolo = entrega / "03_IMAGENES_REFERENCIALES" / "03_FINALES" / "YOLO"
+    salida_detecciones = raiz_yolo / "DETECCIONES"
+    salida_evaluacion = raiz_yolo / "EVALUACION"
     salida_comp = entrega / "03_IMAGENES_REFERENCIALES" / "03_FINALES" / "COMPARACION" / "MATLAB_VS_YOLO"
     casos_matlab = entrega / "03_IMAGENES_REFERENCIALES" / "03_FINALES" / "COMPARACION" / "casos_detallados"
     csv_matlab = entrega / "04_RESULTADOS" / "01_MATLAB_CLASICO" / "METRICAS" / "metricas_por_imagen.csv"
@@ -266,12 +269,13 @@ def main() -> None:
         real = 100 * np.mean(gt_c == 1) if len(gt_c) else 0.0
         estimado = 100 * np.mean(pr_c == 1) if len(pr_c) else 0.0
 
-        salida_individual = salida_yolo / f"yolo_{caso}.png"
-        salida_evaluacion = salida_yolo / f"evaluacion_yolo_{caso}.png"
-        salida_yolo.mkdir(parents=True, exist_ok=True)
+        salida_individual = salida_detecciones / f"yolo_{caso}.png"
+        salida_evaluacion_caso = salida_evaluacion / f"evaluacion_yolo_{caso}.png"
+        salida_detecciones.mkdir(parents=True, exist_ok=True)
+        salida_evaluacion.mkdir(parents=True, exist_ok=True)
         cv2.imwrite(str(salida_individual), dibujar_yolo(
             imagen, pr_b, pr_c, conf, real, estimado, precision, recall, f1))
-        cv2.imwrite(str(salida_evaluacion), dibujar_evaluacion(
+        cv2.imwrite(str(salida_evaluacion_caso), dibujar_evaluacion(
             imagen, gt_c, gt_b, pr_c, pr_b, args.iou_metrica))
 
         m = matlab[caso]
@@ -304,7 +308,7 @@ def main() -> None:
                 (carpeta_caso / "10_comparacion.png", "MATLAB clásico",
                  f"Real {real:.1f}% | Estimado {float(m['pp']):.1f}% | Error {abs(float(m['pr'])-float(m['pp'])):.1f} pp",
                  f"Precisión {float(m['P']):.3f} | Recall {float(m['R']):.3f} | F1 {float(m['F1']):.3f}", True),
-                (salida_evaluacion, "YOLOv8s",
+                (salida_evaluacion_caso, "YOLOv8s",
                  f"Real {real:.1f}% | Estimado {estimado:.1f}% | Error {abs(real-estimado):.1f} pp",
                  f"Precisión {precision:.3f} | Recall {recall:.3f} | F1 {f1:.3f}", False),
             ],
