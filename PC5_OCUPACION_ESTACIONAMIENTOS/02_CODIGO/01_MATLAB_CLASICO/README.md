@@ -1,5 +1,7 @@
 # Método clásico en MATLAB
 
+Para una explicación sencilla, archivo por archivo y función por función, consulte [`GUIA_CODIGO_MATLAB.md`](GUIA_CODIGO_MATLAB.md).
+
 ## Requisitos
 
 - MATLAB R2020b o posterior (declarado por el código original).
