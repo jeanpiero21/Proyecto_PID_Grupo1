@@ -18,7 +18,6 @@ Entrega del Grupo 1 para Procesamiento de Imágenes Digitales. El proyecto estud
 | `03_IMAGENES_REFERENCIALES` | Entradas reales, etapas intermedias MATLAB y resultados finales/comparativos. |
 | `04_RESULTADOS` | Resultados separados en MATLAB, YOLO y comparación homogénea. |
 | `05_DATOS_PRUEBA` | Muestra de 12 imágenes y sus 12 anotaciones YOLO. |
-| `REPORTE_ORGANIZACION.md` | Inventario, verificaciones y pendientes de la rúbrica. |
 
 ## Ejecución rápida
 
@@ -58,4 +57,4 @@ El mAP de YOLO no se presenta como si fuera equivalente a la exactitud o al erro
 
 ## Estado
 
-La estructura, código, muestra de datos, pesos, HTML, notebook, presentación y evidencias visuales están organizados. El informe se mantiene exclusivamente en su repositorio versionado externo mientras está en desarrollo; cuando se termine, solo se incorporará el PDF definitivo como `01_DOCUMENTACION/Informe_Final.pdf`. También falta ensayar una exposición de 4–5 minutos por al menos dos integrantes. Consulte el reporte para el detalle completo.
+La estructura, código, muestra de datos, pesos, HTML, notebook, presentación y evidencias visuales están organizados. El informe se mantiene exclusivamente en su repositorio versionado externo mientras está en desarrollo; cuando se termine, solo se incorporará el PDF definitivo como `01_DOCUMENTACION/Informe_Final.pdf`. También falta ensayar una exposición de 4–5 minutos por al menos dos integrantes.
