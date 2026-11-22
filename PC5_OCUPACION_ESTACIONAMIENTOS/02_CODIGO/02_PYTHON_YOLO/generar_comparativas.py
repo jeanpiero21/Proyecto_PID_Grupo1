@@ -126,8 +126,8 @@ def dibujar_yolo(imagen: np.ndarray, cajas: np.ndarray, clases: np.ndarray,
                 (10, 27), cv2.FONT_HERSHEY_SIMPLEX, 0.48, (20, 20, 20), 1, cv2.LINE_AA)
     cv2.putText(lienzo, f"Real {real:.1f}% | YOLO {estimado:.1f}% | Error {abs(real-estimado):.1f} pp",
                 (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.48, (20, 20, 20), 1, cv2.LINE_AA)
-    cv2.putText(lienzo, f"P {precision:.3f} | R {recall:.3f} | F1 {f1:.3f}",
-                (10, 93), cv2.FONT_HERSHEY_SIMPLEX, 0.48, (20, 20, 20), 1, cv2.LINE_AA)
+    cv2.putText(lienzo, f"Precision {precision:.3f} | Recall {recall:.3f} | F1 {f1:.3f}",
+                (10, 93), cv2.FONT_HERSHEY_SIMPLEX, 0.38, (20, 20, 20), 1, cv2.LINE_AA)
     return lienzo
 
 
