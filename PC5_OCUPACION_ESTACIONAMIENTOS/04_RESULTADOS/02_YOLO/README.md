@@ -1,7 +1,7 @@
 # Resultados YOLOv8s
 
 `METRICAS/metricas_validacion_yolo.csv` transcribe la validación final guardada
-en la salida de `pid_2.ipynb`. Corresponde al mejor peso luego de 50 épocas:
+en la salida de `entrenamiento_evaluacion_yolov8.ipynb`. Corresponde al mejor peso luego de 50 épocas:
 1 618 imágenes y 92 808 instancias de validación.
 
 Estas son métricas de **detección de objetos**. No deben confundirse con las

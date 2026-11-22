@@ -33,7 +33,7 @@ Requiere MATLAB R2020b o posterior e Image Processing Toolbox. El equipo usado p
 ### Python + YOLO
 
 1. Cree un entorno virtual e instale `pip install -r requirements.txt`.
-2. Para revisar el entrenamiento ya realizado, abra `pid_2.ipynb` o `pid_2.html`.
+2. Para revisar el entrenamiento ya realizado, abra `entrenamiento_evaluacion_yolov8.ipynb` o `entrenamiento_evaluacion_yolov8.html`.
 3. Para inferencia local, adapte la ruta de entrada de `scripts_auxiliares/probar.py`; los pesos están en `pesos/best.pt`.
 4. Para exportar el test y habilitar T6, ejecute `scripts_auxiliares/exportar_predicciones_yolo.py` indicando la carpeta `test/images`.
 5. Para reconstruir las 12 detecciones y comparativas del informe, ejecute `scripts_auxiliares/generar_comparativas.py`.

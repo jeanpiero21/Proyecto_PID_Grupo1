@@ -2,8 +2,8 @@
 
 ## Archivos principales
 
-- `pid_2.ipynb`: notebook original, con celdas, metadatos y salidas preservados.
-- `pid_2.html`: exportación para revisión visual; no es un notebook ejecutable.
+- `entrenamiento_evaluacion_yolov8.ipynb`: notebook principal, con celdas, metadatos y salidas preservados.
+- `entrenamiento_evaluacion_yolov8.html`: exportación para revisión visual; no es un notebook ejecutable.
 - `scripts_auxiliares/probar.py`: demostración local sobre una imagen.
 - `scripts_auxiliares/exportar_predicciones_yolo.py`: exporta todo `test/images` al formato que consume T6 en MATLAB.
 - `scripts_auxiliares/generar_comparativas.py`: genera resultados YOLO y comparativas MATLAB--YOLO para las 12 imágenes del entregable.
