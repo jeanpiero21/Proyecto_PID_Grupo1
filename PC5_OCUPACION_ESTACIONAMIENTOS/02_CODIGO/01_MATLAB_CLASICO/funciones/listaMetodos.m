@@ -1,6 +1,8 @@
 function M = listaMetodos()
 %LISTAMETODOS Técnicas que se comparan para decidir "ocupado / libre" (todas con umbral).
 %   La primera es el método principal. M.semana indica dónde se vio en el curso EL5313.
+% Este archivo es el catálogo del experimento: nombre visible, variable interna,
+% tema del curso y tipo de umbral deben conservar el mismo orden.
 M.nombre = { ...
     'HOG vs. cajón vacío', ...
     'NCC-Sobel vs. cajón vacío', ...
@@ -17,5 +19,7 @@ M.ind = {'hog', 'ncc', 'gradMorf', 'grad', 'topHat', 'resta', 'desv', 'bordes', 
 M.semana = {'S11 HOG', 'Extra: correlación', 'S9 Morfología', 'S3/S10 Bordes', 'S9 Morfología', ...
     'S9-S10 Umbral+morfología', 'S10 Estadística', 'S3/S10 Bordes', 'S3/S10 Histograma', 'S7 Color', 'S9-S11'};
 M.tipo = repmat({'spotCalib'}, 1, numel(M.ind));
+% El voto combina tres señales de estructura; no incluye color para evitar que
+% un cambio de iluminación domine la decisión.
 M.voto = {'hog', 'gradMorf', 'grad'};     % indicadores del voto por mayoría
 end

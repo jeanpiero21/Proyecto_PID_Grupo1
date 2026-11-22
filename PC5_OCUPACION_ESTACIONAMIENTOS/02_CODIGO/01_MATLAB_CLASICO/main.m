@@ -16,10 +16,19 @@
 %  (T3, preprocesamiento: script aparte comparar_preprocesamiento.m)
 %
 %  Requisitos: MATLAB R2020b o superior + Image Processing Toolbox.
+%
+%  CÓMO LEER ESTE SCRIPT:
+%  Cada bloque responde una pregunta concreta. Primero se prepara el sistema,
+%  después se evalúa una sola vez y finalmente se reutilizan esos datos para
+%  comparar técnicas. Así evitamos procesar las mismas imágenes muchas veces.
 % =========================================================================
 clear; clc; close all;
+
+% Cargamos la configuración y agregamos la carpeta de funciones auxiliares.
 cfg = config();
 addpath(fullfile(cfg.raiz, 'funciones'));
+
+% Creamos las carpetas donde se guardarán tablas, gráficas y evidencias.
 carpetas = {'', 'tablas', 'figuras', 'imagenes_intermedias', 'deteccion_auto_cajones'};
 for k = 1:numel(carpetas)
     d = fullfile(cfg.rutaSalida, carpetas{k});
@@ -30,6 +39,8 @@ rutaTab = @(nombre) fullfile(cfg.rutaSalida, 'tablas', nombre);
 AZUL = [0.20 0.45 0.75]; NARANJA = [0.90 0.55 0.15];
 
 %% 1) CALIBRACIÓN ---------------------------------------------------------
+% La calibración guarda lo que depende de cada cámara: ubicación de cajones,
+% apariencia del cajón vacío y umbrales. Si ya existe y es compatible, se reutiliza.
 archivoCalib = fullfile(cfg.rutaSalida, 'calibracion.mat');
 calib = [];
 if isfile(archivoCalib) && ~cfg.recalibrar
@@ -53,6 +64,8 @@ nC = numel(camaras);
 nM = numel(metodos.nombre);
 
 %% 2) EVALUACIÓN EN TEST --------------------------------------------------
+% Procesamos el test una sola vez. E guarda la etiqueta real y el valor de cada
+% indicador para cada cajón; las tablas siguientes trabajan sobre esos valores.
 E = evaluarSplit(calib, cfg);
 save(fullfile(cfg.rutaSalida, 'evaluacion.mat'), 'E');
 [~, nombresVar] = filaMetricas();
@@ -60,6 +73,8 @@ colF1 = strcmp(nombresVar, 'F1');
 colMAE = strcmp(nombresVar, 'MAE_pp');
 
 %% 3) T1: COMPARACIÓN DE TÉCNICAS ------------------------------------------
+% Pregunta: ¿qué descriptor separa mejor los cajones libres de los ocupados?
+% Todos usan las mismas imágenes y el umbral calibrado por cajón.
 res = zeros(nM, numel(nombresVar));
 for m = 1:nM
     [mc, mo] = metricasRegla(E, aplicarRegla(E, calib, metodos.ind{m}, metodos.tipo{m}));
@@ -72,6 +87,7 @@ fprintf('\n=== T1. Técnicas para decidir ocupado/libre (umbral calibrado por ca
 disp(T1(:, {'Tecnica', 'Curso', 'Exactitud', 'Precision', 'Recall', 'F1', 'Kappa', 'MAE_pp', 'RMSE_pp'}));
 writetable(T1, rutaTab('T1_tecnicas.csv'));
 
+% Azul identifica técnicas vistas en el curso; naranja, técnicas adicionales.
 esExtra = startsWith(metodos.semana, 'Extra');
 colores = repmat(AZUL, nM, 1);
 colores(esExtra, :) = repmat(NARANJA, nnz(esExtra), 1);
@@ -88,6 +104,8 @@ title(tl, 'T1. Comparación de técnicas  |  azul: del curso  ·  naranja: extra
 guardarFigura(fig, rutaFig('T1_comparacion_tecnicas.png'));
 
 %% 4) T2: COMPARACIÓN DE TIPOS DE UMBRAL -----------------------------------
+% Pregunta: ¿conviene un único umbral o uno adaptado a la cámara/cajón?
+% También comparamos Otsu (sin etiquetas) contra calibración supervisada.
 indT2 = {'hog', 'ncc', 'grad', 'resta'};
 nomT2 = {'HOG', 'NCC-Sobel', 'Gradiente Sobel', 'Resta+Otsu+apertura'};
 tipos = {'globOtsu', 'globCalib', 'camOtsu', 'camCalib', 'spotOtsu', 'spotCalib'};
@@ -110,6 +128,8 @@ title('T2. Umbral global vs. por cámara vs. por cajón; Otsu (sin etiquetas) vs
 guardarFigura(fig, rutaFig('T2_tipos_umbral.png'));
 
 %% 5) T4: ROBUSTEZ POR CÁMARA Y POR HORA -----------------------------------
+% Aquí no cambiamos el método: dividimos el test para ver en qué cámara u hora
+% baja el desempeño. Esto ayuda a detectar sensibilidad a perspectiva e iluminación.
 indT4 = {'hog', 'ncc', 'gradMorf', 'resta'};
 nomT4 = {'HOG', 'NCC-Sobel', 'Gradiente morfológico', 'Resta+Otsu+apertura'};
 franjas = [6 9; 9 12; 12 15; 15 18; 18 21];
@@ -154,6 +174,8 @@ title(tl, 'T4. Robustez (umbral calibrado por cajón)');
 guardarFigura(fig, rutaFig('T4_robustez_camara_hora.png'));
 
 %% 6) FIGURAS DEL MÉTODO PRINCIPAL ------------------------------------------
+% Resumimos el mejor método con tres vistas: confusión por cajón, porcentaje
+% real frente al estimado y distribución del error por imagen.
 pred1 = aplicarRegla(E, calib, metodos.ind{1}, metodos.tipo{1});
 [mc1, mo1, pctReal, pctPred] = metricasRegla(E, pred1);
 guardarFigura(graficarConfusion(mc1, metodos.nombre{1}), rutaFig('matriz_confusion.png'));
@@ -176,6 +198,8 @@ title('Distribución del error (método principal)');
 guardarFigura(fig, rutaFig('histograma_error_ocupacion.png'));
 
 %% 7) IMÁGENES INTERMEDIAS (una imagen de test por cámara) -----------------
+% Elegimos, por cámara, una escena cercana al 50 % de ocupación. Es más útil
+% visualmente que mostrar únicamente estacionamientos vacíos o llenos.
 for c = 1:nC
     cand = find(E.imgCam == c);
     if isempty(cand), continue; end
@@ -189,6 +213,8 @@ end
 fprintf('\nImágenes intermedias guardadas en %s\n', fullfile(cfg.rutaSalida, 'imagenes_intermedias'));
 
 %% 8) T5: DETECCIÓN AUTOMÁTICA DE CAJONES (sin etiquetas) ------------------
+% Esta parte es exploratoria: intenta encontrar los cajones sin usar el mapa fijo.
+% Comparamos componentes conexos y watershed contra los cajones reales.
 fprintf('\nDetección automática de cajones (fondo mediano + actividad + Otsu + morfología + watershed)...\n');
 filasA = cell(0, 2); resA = zeros(0, 7);
 for c = 1:nC
@@ -212,6 +238,8 @@ fprintf('=== T5. Detección automática de cajones ===\n'); disp(T5);
 writetable(T5, rutaTab('T5_deteccion_cajones.csv'));
 
 %% 9) (OPCIONAL) COMPARACIÓN CON YOLO --------------------------------------
+% Solo se ejecuta si existen archivos de predicción. Las predicciones se llevan
+% al mismo formato de métricas para no comparar números que miden tareas distintas.
 if isfolder(cfg.rutaPredYOLO)
     ry = evaluarYOLO(calib, cfg);
     fprintf('\n=== YOLO (%d imágenes, %d sin predicción) ===\n', ry.nImagenes, ry.nSinPrediccion);
@@ -232,6 +260,8 @@ else
 end
 
 %% 10) DEMO: la misma imagen que usa probar.py -------------------------------
+% Cerramos con una escena fácil de mostrar en la exposición: cajas verdes para
+% libres, rojas para ocupados y el porcentaje total en el título.
 rutaDemo = fullfile(cfg.rutaDataset, cfg.splitEval, 'images', cfg.imagenDemo);
 if ~isfile(rutaDemo), rutaDemo = E.lista(1).img; end
 I = imread(rutaDemo);

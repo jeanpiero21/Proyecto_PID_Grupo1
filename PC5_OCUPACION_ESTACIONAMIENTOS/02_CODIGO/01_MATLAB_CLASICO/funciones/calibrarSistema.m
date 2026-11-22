@@ -7,7 +7,13 @@ function calib = calibrarSistema(cfg)
 %      histograma, saturación), una por nivel de brillo.
 %   5) Umbral de la resta (Otsu sobre las diferencias) y umbrales de decisión de cada
 %      indicador: global, por cámara y por cajón; con Otsu (sin etiquetas) o calibrado.
+%
+% ENTRADA: cfg con rutas y parámetros.
+% SALIDA : calib con cámaras, mapas, referencias, métodos y umbrales.
+% IDEA   : aprender únicamente la referencia del escenario fijo; no se entrena
+%          un clasificador de aprendizaje automático.
 
+% Primero reunimos las imágenes de calibración y leemos su tamaño real.
 lista = listarSplit(cfg.rutaDataset, cfg.splitCalib, cfg.maxImgsCalib);
 info = imfinfo(lista(1).img);
 W = info.Width; H = info.Height;
@@ -15,6 +21,8 @@ fprintf('Calibrando con %d imágenes de "%s" (%dx%d, preprocesamiento "%s")...\n
     numel(lista), cfg.splitCalib, W, H, cfg.preproc);
 
 % ---------- 1) Agrupar por layout ----------
+% Dos imágenes pertenecen a la misma cámara si sus cajones tienen la misma
+% distribución normalizada. Una distribución nueva crea una cámara nueva.
 camaras = struct('nombre', {}, 'cajas', {}, 'norm', {}, 'idx', {});
 for i = 1:numel(lista)
     [~, cajas, nrm] = leerEtiquetas(lista(i).lbl, W, H);
@@ -38,6 +46,7 @@ Vcal = cell(numel(camaras), 1);
 Ycal = cell(numel(camaras), 1);
 
 for c = 1:numel(camaras)
+    % Reservamos memoria por cámara para no recalcular descriptores después.
     ids = camaras(c).idx;
     nI = numel(ids);
     N = size(camaras(c).cajas, 1);
@@ -54,6 +63,8 @@ for c = 1:numel(camaras)
     kp = 0;
 
     % ---------- 2) y 3) recorrer las imágenes de la cámara ----------
+    % En cada imagen alineamos las etiquetas con el mapa fijo y extraemos todos
+    % los descriptores de los cajones.
     for t = 1:nI
         i = ids(t);
         I = imread(lista(i).img);
@@ -76,6 +87,8 @@ for c = 1:numel(camaras)
     camaras(c).rutas = {lista(ids).img};
 
     % ---------- 4) referencias de cajón vacío ----------
+    % Cada cajón obtiene K referencias vacías. Si casi nunca aparece vacío,
+    % usamos como respaldo los ejemplos con menor cantidad de textura.
     refs = struct('sobel', {cell(N, 1)}, 'gris', {cell(N, 1)}, 'hog', {cell(N, 1)}, ...
                   'hist', {cell(N, 1)}, 'sat', {cell(N, 1)});
     V = struct('ncc', zeros(nI, N), 'hog', zeros(nI, N), 'hist', zeros(nI, N), ...
@@ -112,6 +125,7 @@ for c = 1:numel(camaras)
         muestras{s} = dif(randperm(numel(dif), min(numel(dif), 2000)));
     end
     Tresta = umbralOtsu(vertcat(muestras{:}));
+    % Con un umbral común de diferencia calculamos la fracción de píxeles que cambió.
     for s = 1:N
         Xg = reshape(Pg(:, s, :), [nI Lp]);
         V.resta(:, s) = distanciaResta(Xg, refs.gris{s}, Tresta, cfg.tamParche);
@@ -121,6 +135,8 @@ for c = 1:numel(camaras)
     camaras(c).Tresta = Tresta;
 
     % ---------- 5) umbrales por cámara y por cajón ----------
+    % Guardamos ambas alternativas: Otsu no usa etiquetas; el calibrado busca
+    % la mayor exactitud. Luego main.m podrá compararlas sin recalibrar.
     ok = ~isnan(y);
     for q = 1:numel(indicadores)
         X = V.(indicadores{q});
@@ -146,6 +162,8 @@ for c = 1:numel(camaras)
 end
 
 % ---------- umbral global único (el mismo para todas las cámaras) ----------
+% Finalmente juntamos todas las cámaras para obtener una referencia global.
+% Este umbral sirve como línea base frente a los umbrales más específicos.
 for q = 1:numel(indicadores)
     v = []; yy = [];
     for c = 1:numel(camaras)

@@ -5,6 +5,11 @@ function E = evaluarSplit(calib, cfg)
 %   E.y, E.cam, E.spot, E.img : N_cajones x 1
 %   E.V.(indicador)           : N_cajones x 1
 %   E.imgCam, E.imgHora, E.imgNombre, E.imgLista : por imagen evaluada
+%
+% La función no decide todavía qué técnica es mejor. Solo construye una tabla
+% común de valores para que todas las comparaciones partan de los mismos datos.
+
+% Preparamos estructuras vacías que crecerán con cada imagen válida.
 lista = listarSplit(cfg.rutaDataset, cfg.splitEval);
 inds = calib.indicadores;
 E.y = zeros(0, 1); E.cam = zeros(0, 1); E.spot = zeros(0, 1); E.img = zeros(0, 1);
@@ -14,6 +19,7 @@ E.nSinEtiqueta = 0; E.nExcluidas = 0; E.nCamMal = 0;
 fprintf('Evaluando %d imágenes de "%s"...\n', numel(lista), cfg.splitEval);
 tic;
 for i = 1:numel(lista)
+    % 1) Saltamos únicamente casos sin verdad de terreno o exclusiones explícitas.
     if cfg.excluirMalEtiquetadas && startsWith(lista(i).nombre, cfg.imagenesExcluir)
         E.nExcluidas = E.nExcluidas + 1;                 % etiqueta errónea conocida
         continue;
@@ -24,14 +30,17 @@ for i = 1:numel(lista)
         continue;
     end
     R = analizarImagen(imread(lista(i).img), calib, cfg);
+    % 2) Verificamos que la cámara identificada coincida con su distribución real.
     if R.camara ~= camaraDesdeEtiquetas(nrm, calib.camaras, cfg.tolLayout)
         E.nCamMal = E.nCamMal + 1;                       % cámara mal identificada
         continue;
     end
     j = emparejarConMapa(cajasR, calib.camaras(R.camara).cajas);
+    % 3) Reordenamos las etiquetas para que coincidan con el mapa fijo de cajones.
     y = nan(R.nTotal, 1); y(j) = cl;
     ok = find(~isnan(y));
     k = numel(E.imgLista) + 1;
+    % 4) Agregamos etiqueta, cámara, cajón, imagen y todos los indicadores.
     E.y    = [E.y; y(ok)];                                 %#ok<AGROW>
     E.cam  = [E.cam; repmat(R.camara, numel(ok), 1)];      %#ok<AGROW>
     E.spot = [E.spot; ok];                                 %#ok<AGROW>
