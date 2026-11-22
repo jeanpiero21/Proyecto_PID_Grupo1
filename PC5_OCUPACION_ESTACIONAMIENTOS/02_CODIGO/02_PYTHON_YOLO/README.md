@@ -6,6 +6,7 @@
 - `pid_2.html`: exportación para revisión visual; no es un notebook ejecutable.
 - `probar.py`: inferencia local original.
 - `exportar_predicciones_yolo.py`: exporta todo `test/images` al formato que consume T6 en MATLAB.
+- `generar_comparativas.py`: genera resultados YOLO y comparativas MATLAB--YOLO para las 12 imágenes del entregable.
 - `pesos/best.pt`: pesos entrenados (aprox. 22.5 MB).
 - `data.yaml`: definición original del dataset.
 - `requirements.txt`: dependencias directas verificadas en el notebook/script.

@@ -37,7 +37,8 @@ Requiere MATLAB R2020b o posterior e Image Processing Toolbox. El equipo usado p
 2. Para revisar el entrenamiento ya realizado, abra `pid_2.ipynb` o `pid_2.html`.
 3. Para inferencia local, adapte la ruta de entrada de `probar.py`; los pesos están en `pesos/best.pt`.
 4. Para exportar el test y habilitar T6, ejecute `exportar_predicciones_yolo.py` indicando la carpeta `test/images`.
-5. No es necesario reentrenar para evaluar esta entrega.
+5. Para reconstruir las 12 detecciones y comparativas del informe, ejecute `generar_comparativas.py`.
+6. No es necesario reentrenar para evaluar esta entrega.
 
 El notebook fue creado en Colab y contiene rutas `/content/...`. La clave de API de Roboflow hallada en el original fue redactada en la copia publicable; configure una credencial propia mediante un secreto o variable de entorno antes de descargar nuevamente el dataset.
 
