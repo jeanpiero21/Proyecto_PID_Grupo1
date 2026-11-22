@@ -26,6 +26,12 @@ from ultralytics import YOLO
 
 COLORES = {0: (40, 200, 40), 1: (30, 30, 235)}  # BGR: libre / ocupado
 NOMBRES = {0: "libre", 1: "ocupado"}
+COLORES_EVALUACION = {
+    "TP": (0, 0, 255),       # rojo
+    "TN": (0, 220, 0),       # verde
+    "FP": (0, 230, 230),     # amarillo
+    "FN": (230, 230, 0),     # celeste
+}
 
 
 def argumentos() -> argparse.Namespace:
@@ -111,6 +117,48 @@ def metricas(gt_c: np.ndarray, gt_b: np.ndarray, pr_c: np.ndarray, pr_b: np.ndar
     return tp, fp, fn, precision, recall, f1
 
 
+def emparejar_cajas(gt_b: np.ndarray, pr_b: np.ndarray, umbral: float) -> list[tuple[int, int]]:
+    """Empareja cajas por IoU sin usar la clase, una a una."""
+    matriz = iou(gt_b, pr_b)
+    pares: list[tuple[int, int]] = []
+    while matriz.size:
+        gi, pi = np.unravel_index(np.argmax(matriz), matriz.shape)
+        if matriz[gi, pi] < umbral:
+            break
+        pares.append((int(gi), int(pi)))
+        matriz[gi, :] = -1
+        matriz[:, pi] = -1
+    return pares
+
+
+def dibujar_evaluacion(imagen: np.ndarray, gt_c: np.ndarray, gt_b: np.ndarray,
+                       pr_c: np.ndarray, pr_b: np.ndarray, umbral: float) -> np.ndarray:
+    """Dibuja TP, TN, FP y FN con el mismo código de color usado por MATLAB."""
+    lienzo = imagen.copy()
+    pares = emparejar_cajas(gt_b, pr_b, umbral)
+    pred_asociada = {gi: pi for gi, pi in pares}
+    usados_pred = {pi for _, pi in pares}
+
+    for gi, caja in enumerate(gt_b):
+        real = int(gt_c[gi])
+        if gi in pred_asociada:
+            pred = int(pr_c[pred_asociada[gi]])
+            tipo = "TP" if real == 1 and pred == 1 else \
+                   "TN" if real == 0 and pred == 0 else \
+                   "FP" if real == 0 and pred == 1 else "FN"
+        else:
+            tipo = "FN" if real == 1 else "TN"
+        x1, y1, x2, y2 = np.rint(caja).astype(int)
+        cv2.rectangle(lienzo, (x1, y1), (x2, y2), COLORES_EVALUACION[tipo], 2)
+
+    # Una predicción ocupada sin caja real asociada también es un falso positivo.
+    for pi, caja in enumerate(pr_b):
+        if pi not in usados_pred and int(pr_c[pi]) == 1:
+            x1, y1, x2, y2 = np.rint(caja).astype(int)
+            cv2.rectangle(lienzo, (x1, y1), (x2, y2), COLORES_EVALUACION["FP"], 2)
+    return lienzo
+
+
 def dibujar_yolo(imagen: np.ndarray, cajas: np.ndarray, clases: np.ndarray,
                  confianzas: np.ndarray, real: float, estimado: float,
                  precision: float, recall: float, f1: float) -> np.ndarray:
@@ -157,12 +205,15 @@ def tarjeta(ruta: Path, titulo: str, detalle: str = "", metricas: str = "",
 def comparativa(paneles: list[tuple[Path, str, str, str, bool]],
                 encabezado: str, salida: Path) -> None:
     cards = [tarjeta(*panel) for panel in paneles]
-    margen_superior = 70
+    margen_superior = 100
     lienzo = Image.new("RGB", (1700, 2 * 680 + margen_superior), "white")
     for i, card in enumerate(cards):
         lienzo.paste(card, ((i % 2) * 850, margen_superior + (i // 2) * 680))
-    ImageDraw.Draw(lienzo).text((850, 34), encabezado, font=fuente(29, True),
-                                fill="black", anchor="mm")
+    dibujo = ImageDraw.Draw(lienzo)
+    dibujo.text((850, 28), encabezado, font=fuente(29, True), fill="black", anchor="mm")
+    dibujo.text((850, 70),
+                 "Rojo: TP | Verde: TN | Amarillo: FP | Celeste: FN",
+                 font=fuente(20, True), fill="black", anchor="mm")
     salida.parent.mkdir(parents=True, exist_ok=True)
     lienzo.save(salida, quality=95)
 
@@ -216,9 +267,12 @@ def main() -> None:
         estimado = 100 * np.mean(pr_c == 1) if len(pr_c) else 0.0
 
         salida_individual = salida_yolo / f"yolo_{caso}.png"
+        salida_evaluacion = salida_yolo / f"evaluacion_yolo_{caso}.png"
         salida_yolo.mkdir(parents=True, exist_ok=True)
         cv2.imwrite(str(salida_individual), dibujar_yolo(
             imagen, pr_b, pr_c, conf, real, estimado, precision, recall, f1))
+        cv2.imwrite(str(salida_evaluacion), dibujar_evaluacion(
+            imagen, gt_c, gt_b, pr_c, pr_b, args.iou_metrica))
 
         m = matlab[caso]
         filas_yolo.append({
@@ -247,12 +301,12 @@ def main() -> None:
                 (ruta_imagen, "Imagen original", "Entrada común a ambos métodos", "", False),
                 (carpeta_caso / "08_ground_truth.png", "Ground truth",
                  f"Ocupación real: {real:.1f}%", "40 cajones etiquetados", True),
-                (carpeta_caso / "09_prediccion.png", "MATLAB clásico",
+                (carpeta_caso / "10_comparacion.png", "MATLAB clásico",
                  f"Real {real:.1f}% | Estimado {float(m['pp']):.1f}% | Error {abs(float(m['pr'])-float(m['pp'])):.1f} pp",
                  f"Precisión {float(m['P']):.3f} | Recall {float(m['R']):.3f} | F1 {float(m['F1']):.3f}", True),
-                (salida_individual, "YOLOv8s",
+                (salida_evaluacion, "YOLOv8s",
                  f"Real {real:.1f}% | Estimado {estimado:.1f}% | Error {abs(real-estimado):.1f} pp",
-                 f"Precisión {precision:.3f} | Recall {recall:.3f} | F1 {f1:.3f}", True),
+                 f"Precisión {precision:.3f} | Recall {recall:.3f} | F1 {f1:.3f}", False),
             ],
             f"Caso {caso} | Ocupación real: {real:.1f}%",
             salida_comp / f"matlab_vs_yolo_{caso}.jpg",
