@@ -35,7 +35,7 @@ PC5_OCUPACION_ESTACIONAMIENTOS/
 │   │
 │   └── 02_PYTHON_YOLO/                       ← Método YOLO (Python)
 │       ├── notebook_yolo.ipynb              ← Notebook ejecutable (nombre referencial)
-│       ├── entrenamiento_evaluacion_yolov8.html ← Exportación HTML para revisar resultados
+│       ├── main_entrenamiento_yolo.html         ← Exportación HTML del archivo principal
 │       ├── best.pt                          ← Pesos entrenados, si están disponibles
 │       ├── requirements.txt                 ← Dependencias Python
 │       └── README.md                        ← Cómo ejecutar YOLO
@@ -76,7 +76,7 @@ PC5_OCUPACION_ESTACIONAMIENTOS/
 **Guía rápida de lectura:**
 
 - `01_DOCUMENTACION`: **qué se presenta y explica** (informe y diapositivas).
-- `02_CODIGO`: **cómo funciona** cada técnica. El archivo `entrenamiento_evaluacion_yolov8.html` se guarda junto al notebook de YOLO, **no** dentro del informe.
+- `02_CODIGO`: **cómo funciona** cada técnica. El archivo `main_entrenamiento_yolo.html` se guarda junto al notebook de YOLO, **no** dentro del informe.
 - `03_IMAGENES_REFERENCIALES`: **qué se ve** en el proceso: entrada, etapas intermedias y salida.
 - `04_RESULTADOS`: **qué se mide** para comparar MATLAB y YOLO.
 - `05_DATOS_PRUEBA`: **con qué imágenes y etiquetas se puede comprobar** el proyecto.
@@ -91,7 +91,7 @@ Para facilitar la comparación, usar el **mismo identificador de caso** (`caso_0
 | `01_DOCUMENTACION/Presentacion_PC5.pdf` | Exposición de 4–5 minutos, a cargo de al menos dos integrantes. |
 | `02_CODIGO/01_MATLAB_CLASICO/` | Código fuente de la técnica clásica. |
 | `02_CODIGO/02_PYTHON_YOLO/*.ipynb` | Notebook fuente ejecutable de YOLO. |
-| `02_CODIGO/02_PYTHON_YOLO/entrenamiento_evaluacion_yolov8.html` | Exportación HTML del notebook para revisar código, gráficas y resultados; **no es ejecutable como notebook**. |
+| `02_CODIGO/02_PYTHON_YOLO/main_entrenamiento_yolo.html` | Exportación HTML del notebook principal para revisar código, gráficas y resultados; **no es ejecutable como notebook**. |
 | `03_IMAGENES_REFERENCIALES/` | Evidencias originales, intermedias y finales de los dos métodos. |
 | `04_RESULTADOS/` | Gráficas y tablas de métricas reales, incluyendo comparación. |
 | `05_DATOS_PRUEBA/` | Imágenes de evaluación y anotaciones permitidas, más instrucciones para conseguir el dataset. |
