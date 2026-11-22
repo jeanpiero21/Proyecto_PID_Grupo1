@@ -6,7 +6,9 @@ function cfg = config()
 raiz = fileparts(mfilename('fullpath'));            % ...\PROYECTO_SEGMENTACION\codigo_matlab
 cfg.raiz        = raiz;
 cfg.rutaDataset = fullfile(raiz, '..', '..', 'pid_2_pklot');   % carpeta con train / valid / test
-cfg.rutaSalida  = fullfile(raiz, 'resultados');
+% Las salidas del metodo clasico quedan separadas de YOLO en la entrega.
+cfg.rutaSalida  = fullfile(raiz, '..', '..', '04_RESULTADOS', '01_MATLAB_CLASICO');
+cfg.rutaComparacion = fullfile(raiz, '..', '..', '04_RESULTADOS', '03_COMPARACION');
 cfg.version     = 2;          % versión del formato de calibración
 
 cfg.splitCalib   = 'valid';   % imágenes etiquetadas para calibrar (mapa, referencias, umbrales)
@@ -39,7 +41,8 @@ cfg.auto.areaMinRel    = 0.4;          % descarta regiones con área < 0.4 * med
 cfg.auto.iou           = 0.3;          % IoU mínima para contar un cajón detectado como correcto
 
 % ---------------- Comparación con YOLO (opcional) ----------------
-cfg.rutaPredYOLO = fullfile(raiz, '..', 'predicciones_yolo_test');  % .txt de exportar_predicciones_yolo.py
+cfg.rutaPredYOLO = fullfile(raiz, '..', '..', '04_RESULTADOS', ...
+    '02_YOLO', 'PREDICCIONES_TEST');  % .txt de exportar_predicciones_yolo.py
 cfg.iouDeteccion = 0.5;
 
 % ---------------- Etiquetas erróneas detectadas en test ----------------

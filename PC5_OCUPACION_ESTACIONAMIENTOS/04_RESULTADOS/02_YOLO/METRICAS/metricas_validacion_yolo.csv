@@ -1,0 +1,4 @@
+clase,imagenes,instancias,precision,recall,mAP50,mAP50_95
+global,1618,92808,0.999,0.999,0.995,0.991
+space-empty,1342,48551,0.999,0.999,0.995,0.992
+space-occupied,1286,44257,0.999,0.999,0.995,0.990

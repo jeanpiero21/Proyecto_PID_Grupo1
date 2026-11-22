@@ -5,6 +5,7 @@
 - `pid_2.ipynb`: notebook original, con celdas, metadatos y salidas preservados.
 - `pid_2.html`: exportación para revisión visual; no es un notebook ejecutable.
 - `probar.py`: inferencia local original.
+- `exportar_predicciones_yolo.py`: exporta todo `test/images` al formato que consume T6 en MATLAB.
 - `pesos/best.pt`: pesos entrenados (aprox. 22.5 MB).
 - `data.yaml`: definición original del dataset.
 - `requirements.txt`: dependencias directas verificadas en el notebook/script.
@@ -24,6 +25,20 @@ python -m pip install -r requirements.txt
 `probar.py` contiene rutas del equipo original. Antes de ejecutarlo, configure la ruta de la imagen y confirme que el modelo apunta a `pesos/best.pt`. El notebook usa rutas `/content/...` propias de Colab.
 
 No se debe ejecutar el entrenamiento para revisar la entrega. El HTML permite comprobar el proceso ya realizado y `resultado_ocupacion_pklot.jpg` conserva una salida real.
+
+## Exportación para la comparación T6
+
+Con el dataset completo disponible:
+
+```powershell
+python exportar_predicciones_yolo.py --imagenes "RUTA_AL_DATASET/test/images"
+```
+
+Los TXT se guardan por defecto en
+`04_RESULTADOS/02_YOLO/PREDICCIONES_TEST`. Después, `main.m` puede calcular una
+comparación homogénea sobre las mismas imágenes. Las métricas originales de
+validación del entrenamiento están separadas en
+`04_RESULTADOS/02_YOLO/METRICAS`.
 
 ## Dataset y credencial
 

@@ -29,13 +29,13 @@ cfg = config();
 addpath(fullfile(cfg.raiz, 'funciones'));
 
 % Creamos las carpetas donde se guardarán tablas, gráficas y evidencias.
-carpetas = {'', 'tablas', 'figuras', 'imagenes_intermedias', 'deteccion_auto_cajones'};
+carpetas = {'', 'METRICAS', 'GRAFICAS', 'IMAGENES_INTERMEDIAS', 'DETECCION_AUTO_CAJONES'};
 for k = 1:numel(carpetas)
     d = fullfile(cfg.rutaSalida, carpetas{k});
     if ~isfolder(d), mkdir(d); end
 end
-rutaFig = @(nombre) fullfile(cfg.rutaSalida, 'figuras', nombre);
-rutaTab = @(nombre) fullfile(cfg.rutaSalida, 'tablas', nombre);
+rutaFig = @(nombre) fullfile(cfg.rutaSalida, 'GRAFICAS', nombre);
+rutaTab = @(nombre) fullfile(cfg.rutaSalida, 'METRICAS', nombre);
 AZUL = [0.20 0.45 0.75]; NARANJA = [0.90 0.55 0.15];
 
 %% 1) CALIBRACIÓN ---------------------------------------------------------
@@ -208,9 +208,9 @@ for c = 1:nC
     I = imread(E.lista(i).img);
     R = analizarImagen(I, calib, cfg);
     guardarIntermedias(I, R, calib, cfg, ...
-        fullfile(cfg.rutaSalida, 'imagenes_intermedias', camaras(c).nombre), camaras(c).nombre);
+        fullfile(cfg.rutaSalida, 'IMAGENES_INTERMEDIAS', camaras(c).nombre), camaras(c).nombre);
 end
-fprintf('\nImágenes intermedias guardadas en %s\n', fullfile(cfg.rutaSalida, 'imagenes_intermedias'));
+fprintf('\nImágenes intermedias guardadas en %s\n', fullfile(cfg.rutaSalida, 'IMAGENES_INTERMEDIAS'));
 
 %% 8) T5: DETECCIÓN AUTOMÁTICA DE CAJONES (sin etiquetas) ------------------
 % Esta parte es exploratoria: intenta encontrar los cajones sin usar el mapa fijo.
@@ -230,7 +230,7 @@ for c = 1:nC
         resA(end + 1, :) = [size(cam.cajas, 1) size(variantes(v).centros, 1) ...
             mCt.precision mCt.recall mCt.f1 mI.precision mI.recall];                             %#ok<SAGROW>
     end
-    guardarDeteccionAuto(inter, variantes, cam.cajas, fullfile(cfg.rutaSalida, 'deteccion_auto_cajones'), cam.nombre);
+    guardarDeteccionAuto(inter, variantes, cam.cajas, fullfile(cfg.rutaSalida, 'DETECCION_AUTO_CAJONES'), cam.nombre);
 end
 T5 = array2table(resA, 'VariableNames', {'CajonesReales', 'Regiones', 'P_centro', 'R_centro', 'F1_centro', 'P_IoU', 'R_IoU'});
 T5 = addvars(T5, string(filasA(:, 1)), string(filasA(:, 2)), 'Before', 1, 'NewVariableNames', {'Camara', 'Variante'});
@@ -240,7 +240,8 @@ writetable(T5, rutaTab('T5_deteccion_cajones.csv'));
 %% 9) (OPCIONAL) COMPARACIÓN CON YOLO --------------------------------------
 % Solo se ejecuta si existen archivos de predicción. Las predicciones se llevan
 % al mismo formato de métricas para no comparar números que miden tareas distintas.
-if isfolder(cfg.rutaPredYOLO)
+archivosPredYOLO = dir(fullfile(cfg.rutaPredYOLO, '*.txt'));
+if ~isempty(archivosPredYOLO)
     ry = evaluarYOLO(calib, cfg);
     fprintf('\n=== YOLO (%d imágenes, %d sin predicción) ===\n', ry.nImagenes, ry.nSinPrediccion);
     fprintf('Detección de cajones (IoU >= %.1f): P = %.3f  R = %.3f  F1 = %.3f\n', ...
@@ -254,7 +255,8 @@ if isfolder(cfg.rutaPredYOLO)
     T1y = [T1; TY];
     fprintf('\n=== Clásico vs. YOLO (mismas métricas) ===\n');
     disp(T1y(:, {'Tecnica', 'Curso', 'Exactitud', 'Precision', 'Recall', 'F1', 'Kappa', 'MAE_pp'}));
-    writetable(T1y, rutaTab('T6_clasico_vs_yolo.csv'));
+    if ~isfolder(cfg.rutaComparacion), mkdir(cfg.rutaComparacion); end
+    writetable(T1y, fullfile(cfg.rutaComparacion, 'T6_clasico_vs_yolo.csv'));
 else
     fprintf('\n(Sin predicciones de YOLO en %s: corre exportar_predicciones_yolo.py para comparar.)\n', cfg.rutaPredYOLO);
 end
@@ -277,4 +279,4 @@ catch
     saveas(fig, fullfile(cfg.rutaSalida, 'resultado_demo.png'));
 end
 set(fig, 'Visible', 'on');
-fprintf('Listo. Tablas en %s y figuras en %s\n', fullfile(cfg.rutaSalida, 'tablas'), fullfile(cfg.rutaSalida, 'figuras'));
+fprintf('Listo. Tablas en %s y figuras en %s\n', fullfile(cfg.rutaSalida, 'METRICAS'), fullfile(cfg.rutaSalida, 'GRAFICAS'));

@@ -16,7 +16,7 @@ Entrega del Grupo 1 para Procesamiento de Imágenes Digitales. El proyecto estud
 | `02_CODIGO/01_MATLAB_CLASICO` | Scripts MATLAB, funciones auxiliares y guía de ejecución. |
 | `02_CODIGO/02_PYTHON_YOLO` | Notebook original con salidas, HTML de revisión, script de inferencia y pesos. |
 | `03_IMAGENES_REFERENCIALES` | Entradas reales, etapas intermedias MATLAB y resultados finales/comparativos. |
-| `04_RESULTADOS` | CSV y gráficas reales generadas por el proyecto. |
+| `04_RESULTADOS` | Resultados separados en MATLAB, YOLO y comparación homogénea. |
 | `05_DATOS_PRUEBA` | Muestra de 12 imágenes y sus 12 anotaciones YOLO. |
 | `REPORTE_ORGANIZACION.md` | Inventario, verificaciones y pendientes de la rúbrica. |
 
@@ -36,7 +36,8 @@ Requiere MATLAB R2020b o posterior e Image Processing Toolbox. El equipo usado p
 1. Cree un entorno virtual e instale `pip install -r requirements.txt`.
 2. Para revisar el entrenamiento ya realizado, abra `pid_2.ipynb` o `pid_2.html`.
 3. Para inferencia local, adapte la ruta de entrada de `probar.py`; los pesos están en `pesos/best.pt`.
-4. No es necesario reentrenar para evaluar esta entrega.
+4. Para exportar el test y habilitar T6, ejecute `exportar_predicciones_yolo.py` indicando la carpeta `test/images`.
+5. No es necesario reentrenar para evaluar esta entrega.
 
 El notebook fue creado en Colab y contiene rutas `/content/...`. La clave de API de Roboflow hallada en el original fue redactada en la copia publicable; configure una credencial propia mediante un secreto o variable de entorno antes de descargar nuevamente el dataset.
 
@@ -46,7 +47,13 @@ La muestra reproducible contiene 12 pares imagen/anotación con el mismo nombre 
 
 ## Resultados
 
-Los resultados numéricos conservados se encuentran en `04_RESULTADOS/METRICAS`. Las gráficas reales están en `04_RESULTADOS/GRAFICAS`. No se creó un `comparacion.csv` nuevo porque no se verificó una tabla homogénea de ambas técnicas con exactamente el esquema solicitado.
+Los resultados están separados para evitar mezclar métricas de tareas distintas:
+
+- `04_RESULTADOS/01_MATLAB_CLASICO`: métricas y gráficas del procesamiento clásico.
+- `04_RESULTADOS/02_YOLO`: métricas de detección transcritas de la validación final del notebook y carpeta de predicciones reproducibles.
+- `04_RESULTADOS/03_COMPARACION`: T6, generado únicamente cuando ambos métodos se evalúan sobre las mismas imágenes.
+
+El mAP de YOLO no se presenta como si fuera equivalente a la exactitud o al error porcentual de ocupación de MATLAB.
 
 ## Estado
 

@@ -15,7 +15,7 @@ El repositorio contenía únicamente `rubrica.md` y `README_ESTRUCTURA_PC5.md`; 
 | PDF | 1 relevante | Presentación de la exposición. |
 | LaTeX `.tex` | No incluido | El informe en desarrollo se mantiene en su repositorio Git externo. |
 | Bibliografía `.bib` | No usada | El informe final contiene su bibliografía dentro de `main.tex`. |
-| CSV | 7 originales copiados | Métricas MATLAB y comparación por imagen/técnica. |
+| CSV | 8 verificables | Siete tablas MATLAB y una tabla YOLO transcrita de la validación final. |
 | Imágenes | 12 entradas y más de 200 evidencias | Originales, etapas y resultados. |
 | Anotaciones | 12 seleccionadas | Ground truth YOLO correspondiente a la muestra. |
 
@@ -30,7 +30,9 @@ Se copiaron los materiales; no se borró ni modificó ningún original en `Downl
 - `PID PPT.pdf` → `01_DOCUMENTACION/Presentacion_PC5.pdf`.
 - Imágenes seleccionadas → originales y muestra de prueba.
 - Etiquetas coincidentes → `05_DATOS_PRUEBA/anotaciones`.
-- Resultados MATLAB → intermedias, finales, métricas y gráficas.
+- Resultados MATLAB → `04_RESULTADOS/01_MATLAB_CLASICO`.
+- Resultados YOLO → `04_RESULTADOS/02_YOLO`, separados de las métricas clásicas.
+- Comparación homogénea → `04_RESULTADOS/03_COMPARACION`; se genera como T6 cuando existen predicciones del mismo test.
 - Carpetas detalladas y mosaicos de los 12 casos → `03_FINALES/COMPARACION`; se clasificaron como comparativos porque mezclan etapas y técnicas y no deben presentarse falsamente como salidas YOLO puras.
 
 ## Exclusiones intencionales
@@ -58,8 +60,8 @@ Se copiaron los materiales; no se borró ni modificó ningún original en `Downl
 - Se verificaron firmas y tamaños no nulos del PDF, HTML y pesos: PDF válido de 29,388,369 bytes, HTML con estructura de documento y `best.pt` de 22,520,426 bytes.
 - Se inspeccionaron importaciones y rutas del notebook y scripts.
 - MATLAB R2025b analizó los 47 archivos `.m`: no reportó errores de sintaxis; emitió 7 avisos no bloqueantes. Cuatro son supresiones antiguas que ya no corresponden a un aviso y tres recomiendan preasignar arreglos en `evaluarYOLO.m` para mejorar rendimiento.
-- No se reentrenó YOLO ni se recalcularon métricas.
-- No se creó `comparacion.csv`: las tablas existentes se conservaron sin reinterpretarlas.
+- No se reentrenó YOLO. La tabla YOLO conserva exactamente los valores de la validación final registrada en el notebook.
+- Se añadió `exportar_predicciones_yolo.py`; T6 queda preparado, pero no se inventó una comparación porque el dataset completo no está incluido.
 - Durante la inspección del repositorio externo se detectó que falta `figuras/09_comparacion_clasico.png`; este pendiente debe resolverse allí antes de compilar.
 - No se generó un PDF local porque no hay una distribución LaTeX instalada y la figura 09 sigue pendiente.
 

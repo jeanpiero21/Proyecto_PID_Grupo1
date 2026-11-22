@@ -16,7 +16,7 @@ Para una explicación sencilla, archivo por archivo y función por función, con
 cfg.rutaDataset = 'RUTA_LOCAL_AL_DATASET';
 ```
 
-No se modificó el valor original para preservar el código y sus resultados. Las salidas se generan de forma relativa en `resultados/`.
+Las salidas se generan directamente en `04_RESULTADOS/01_MATLAB_CLASICO` para mantenerlas separadas de YOLO.
 
 ## Scripts
 
@@ -42,7 +42,8 @@ Para evitar recalibrar, `cfg.recalibrar` está en `false` y se conservan los arc
 
 - Intermedias: `03_IMAGENES_REFERENCIALES/02_INTERMEDIAS/MATLAB`.
 - Finales: `03_IMAGENES_REFERENCIALES/03_FINALES/MATLAB`.
-- Tablas: `04_RESULTADOS/METRICAS`.
-- Gráficas: `04_RESULTADOS/GRAFICAS`.
+- Tablas: `04_RESULTADOS/01_MATLAB_CLASICO/METRICAS`.
+- Gráficas: `04_RESULTADOS/01_MATLAB_CLASICO/GRAFICAS`.
+- Comparación T6: `04_RESULTADOS/03_COMPARACION`, solo cuando existen predicciones YOLO del mismo test.
 
 No se volvió a ejecutar el pipeline ni se alteraron algoritmos o métricas.
