@@ -23,6 +23,7 @@ Las salidas se generan directamente en `04_RESULTADOS/01_MATLAB_CLASICO` para ma
 - `main.m`: entrada principal; calibra en `valid`, evalúa `test`, genera CSV, gráficas e imágenes intermedias.
 - `demo_una_imagen.m`: demostración sobre una imagen.
 - `comparar_preprocesamiento.m`: compara variantes de preprocesamiento.
+- `generar_mosaicos.m`: reconstruye los 12 mosaicos y el resumen sin recortar títulos.
 - `config.m`: rutas y parámetros del experimento.
 - `a.m`: script auxiliar original; se conserva sin reinterpretarlo.
 - `funciones/`: 42 funciones auxiliares del pipeline.
