@@ -1,0 +1,11 @@
+# Paquete generado para entrega; se conserva localmente, no se versiona.
+PC5_OCUPACION_ESTACIONAMIENTOS.zip
+
+# Archivos temporales del sistema y de LaTeX.
+Thumbs.db
+.DS_Store
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
