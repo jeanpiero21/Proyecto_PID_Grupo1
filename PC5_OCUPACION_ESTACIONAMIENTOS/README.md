@@ -54,7 +54,3 @@ Los resultados están separados para evitar mezclar métricas de tareas distinta
 - `04_RESULTADOS/03_COMPARACION`: T6, generado únicamente cuando ambos métodos se evalúan sobre las mismas imágenes.
 
 El mAP de YOLO no se presenta como si fuera equivalente a la exactitud o al error porcentual de ocupación de MATLAB.
-
-## Estado
-
-La estructura, código, muestra de datos, pesos, HTML, notebook, presentación y evidencias visuales están organizados. El informe se mantiene exclusivamente en su repositorio versionado externo mientras está en desarrollo; cuando se termine, solo se incorporará el PDF definitivo como `01_DOCUMENTACION/Informe_Final.pdf`. También falta ensayar una exposición de 4–5 minutos por al menos dos integrantes.
