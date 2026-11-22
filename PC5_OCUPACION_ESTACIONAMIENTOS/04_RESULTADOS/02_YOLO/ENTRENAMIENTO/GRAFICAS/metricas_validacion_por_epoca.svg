@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="998" viewBox="0 0 960 998" role="img" aria-label="Métricas de validación por época"><rect width="100%" height="100%" fill="white"/><g font-family="Segoe UI,Arial,sans-serif" fill="#17253a"><text x="34" y="40" font-size="28" font-weight="700">Métricas de validación por época</text><text x="34" y="68" font-size="15">PKLot · Historial guardado en best.pt</text>
+<text x="100" y="102" font-size="18" font-weight="600">Precisión</text>
+<path d="M100 255H910" stroke="#dce5ef"/><text x="88" y="259" text-anchor="end" font-size="13">92 %</text>
+<path d="M100 219.99999999999994H910" stroke="#dce5ef"/><text x="88" y="223.99999999999994" text-anchor="end" font-size="13">94 %</text>
+<path d="M100 185.0000000000001H910" stroke="#dce5ef"/><text x="88" y="189.0000000000001" text-anchor="end" font-size="13">96 %</text>
+<path d="M100 150.00000000000006H910" stroke="#dce5ef"/><text x="88" y="154.00000000000006" text-anchor="end" font-size="13">98 %</text>
+<path d="M100 115H910" stroke="#dce5ef"/><text x="88" y="119" text-anchor="end" font-size="13">100 %</text>
+<text x="100" y="276" text-anchor="middle" font-size="13">1</text>
+<text x="248.77551020408163" y="276" text-anchor="middle" font-size="13">10</text>
+<text x="414.0816326530612" y="276" text-anchor="middle" font-size="13">20</text>
+<text x="579.3877551020408" y="276" text-anchor="middle" font-size="13">30</text>
+<text x="744.6938775510204" y="276" text-anchor="middle" font-size="13">40</text>
+<text x="910" y="276" text-anchor="middle" font-size="13">50</text>
+<text x="505" y="297" text-anchor="middle" font-size="13">Época</text>
+<polyline fill="none" stroke="#2563eb" stroke-width="2.6" stroke-linejoin="round" points="100.00,194.07 116.53,192.39 133.06,174.69 149.59,157.75 166.12,143.89 182.65,159.47 199.18,147.36 215.71,137.35 232.24,169.60 248.78,139.19 265.31,167.38 281.84,134.53 298.37,125.34 314.90,128.18 331.43,124.08 347.96,122.72 364.49,124.69 381.02,120.09 397.55,119.73 414.08,119.36 430.61,119.27 447.14,120.18 463.67,117.99 480.20,118.15 496.73,117.21 513.27,117.78 529.80,117.40 546.33,120.85 562.86,116.89 579.39,117.08 595.92,116.65 612.45,117.00 628.98,117.21 645.51,117.10 662.04,116.94 678.57,117.38 695.10,117.15 711.63,116.75 728.16,116.82 744.69,116.70 761.22,116.65 777.76,116.94 794.29,116.94 810.82,116.61 827.35,116.96 843.88,117.12 860.41,116.77 876.94,116.45 893.47,116.75 910.00,116.75"/>
+<text x="100" y="324" font-size="18" font-weight="600">Exhaustividad (recall)</text>
+<path d="M100 477H910" stroke="#dce5ef"/><text x="88" y="481" text-anchor="end" font-size="13">92 %</text>
+<path d="M100 441.99999999999994H910" stroke="#dce5ef"/><text x="88" y="445.99999999999994" text-anchor="end" font-size="13">94 %</text>
+<path d="M100 407.0000000000001H910" stroke="#dce5ef"/><text x="88" y="411.0000000000001" text-anchor="end" font-size="13">96 %</text>
+<path d="M100 372.00000000000006H910" stroke="#dce5ef"/><text x="88" y="376.00000000000006" text-anchor="end" font-size="13">98 %</text>
+<path d="M100 337H910" stroke="#dce5ef"/><text x="88" y="341" text-anchor="end" font-size="13">100 %</text>
+<text x="100" y="498" text-anchor="middle" font-size="13">1</text>
+<text x="248.77551020408163" y="498" text-anchor="middle" font-size="13">10</text>
+<text x="414.0816326530612" y="498" text-anchor="middle" font-size="13">20</text>
+<text x="579.3877551020408" y="498" text-anchor="middle" font-size="13">30</text>
+<text x="744.6938775510204" y="498" text-anchor="middle" font-size="13">40</text>
+<text x="910" y="498" text-anchor="middle" font-size="13">50</text>
+<text x="505" y="519" text-anchor="middle" font-size="13">Época</text>
+<polyline fill="none" stroke="#2563eb" stroke-width="2.6" stroke-linejoin="round" points="100.00,388.41 116.53,388.41 133.06,383.29 149.59,385.84 166.12,402.73 182.65,375.33 199.18,371.35 215.71,355.50 232.24,392.44 248.78,360.77 265.31,392.76 281.84,352.35 298.37,347.69 314.90,351.40 331.43,345.26 347.96,343.53 364.49,345.02 381.02,343.84 397.55,341.94 414.08,341.22 430.61,343.54 447.14,340.83 463.67,339.75 480.20,339.96 496.73,339.64 513.27,339.85 529.80,339.19 546.33,340.85 562.86,338.85 579.39,338.54 595.92,338.61 612.45,338.84 628.98,338.59 645.51,338.71 662.04,338.65 678.57,338.21 695.10,338.63 711.63,339.00 728.16,338.58 744.69,338.47 761.22,338.65 777.76,338.45 794.29,338.33 810.82,338.54 827.35,338.52 843.88,338.10 860.41,338.35 876.94,338.61 893.47,338.37 910.00,338.35"/>
+<text x="100" y="546" font-size="18" font-weight="600">mAP@0,50</text>
+<path d="M100 699H910" stroke="#dce5ef"/><text x="88" y="703" text-anchor="end" font-size="13">92 %</text>
+<path d="M100 664H910" stroke="#dce5ef"/><text x="88" y="668" text-anchor="end" font-size="13">94 %</text>
+<path d="M100 629.0000000000001H910" stroke="#dce5ef"/><text x="88" y="633.0000000000001" text-anchor="end" font-size="13">96 %</text>
+<path d="M100 594H910" stroke="#dce5ef"/><text x="88" y="598" text-anchor="end" font-size="13">98 %</text>
+<path d="M100 559H910" stroke="#dce5ef"/><text x="88" y="563" text-anchor="end" font-size="13">100 %</text>
+<text x="100" y="720" text-anchor="middle" font-size="13">1</text>
+<text x="248.77551020408163" y="720" text-anchor="middle" font-size="13">10</text>
+<text x="414.0816326530612" y="720" text-anchor="middle" font-size="13">20</text>
+<text x="579.3877551020408" y="720" text-anchor="middle" font-size="13">30</text>
+<text x="744.6938775510204" y="720" text-anchor="middle" font-size="13">40</text>
+<text x="910" y="720" text-anchor="middle" font-size="13">50</text>
+<text x="505" y="741" text-anchor="middle" font-size="13">Época</text>
+<polyline fill="none" stroke="#2563eb" stroke-width="2.6" stroke-linejoin="round" points="100.00,623.89 116.53,592.83 133.06,593.32 149.59,574.68 166.12,572.74 182.65,571.83 199.18,570.65 215.71,569.94 232.24,569.69 248.78,568.94 265.31,568.82 281.84,568.45 298.37,568.05 314.90,568.26 331.43,568.29 347.96,568.15 364.49,568.29 381.02,568.06 397.55,568.10 414.08,568.06 430.61,568.12 447.14,568.10 463.67,567.96 480.20,568.05 496.73,568.03 513.27,568.01 529.80,567.94 546.33,568.01 562.86,568.01 579.39,568.12 595.92,568.08 612.45,567.98 628.98,568.01 645.51,568.10 662.04,568.05 678.57,567.98 695.10,568.03 711.63,568.05 728.16,568.03 744.69,568.10 761.22,568.01 777.76,568.05 794.29,568.01 810.82,568.00 827.35,568.00 843.88,567.98 860.41,568.00 876.94,567.98 893.47,567.94 910.00,567.94"/>
+<text x="100" y="768" font-size="18" font-weight="600">mAP@0,50–0,95</text>
+<path d="M100 921H910" stroke="#dce5ef"/><text x="88" y="925" text-anchor="end" font-size="13">68 %</text>
+<path d="M100 886H910" stroke="#dce5ef"/><text x="88" y="890" text-anchor="end" font-size="13">76 %</text>
+<path d="M100 851H910" stroke="#dce5ef"/><text x="88" y="855" text-anchor="end" font-size="13">84 %</text>
+<path d="M100 816H910" stroke="#dce5ef"/><text x="88" y="820" text-anchor="end" font-size="13">92 %</text>
+<path d="M100 781H910" stroke="#dce5ef"/><text x="88" y="785" text-anchor="end" font-size="13">100 %</text>
+<text x="100" y="942" text-anchor="middle" font-size="13">1</text>
+<text x="248.77551020408163" y="942" text-anchor="middle" font-size="13">10</text>
+<text x="414.0816326530612" y="942" text-anchor="middle" font-size="13">20</text>
+<text x="579.3877551020408" y="942" text-anchor="middle" font-size="13">30</text>
+<text x="744.6938775510204" y="942" text-anchor="middle" font-size="13">40</text>
+<text x="910" y="942" text-anchor="middle" font-size="13">50</text>
+<text x="505" y="963" text-anchor="middle" font-size="13">Época</text>
+<polyline fill="none" stroke="#2563eb" stroke-width="2.6" stroke-linejoin="round" points="100.00,909.83 116.53,874.51 133.06,862.49 149.59,844.07 166.12,834.88 182.65,830.31 199.18,823.84 215.71,821.36 232.24,819.57 248.78,815.91 265.31,813.90 281.84,811.44 298.37,806.37 314.90,804.57 331.43,803.69 347.96,801.76 364.49,801.47 381.02,798.80 397.55,796.82 414.08,795.07 430.61,794.78 447.14,793.27 463.67,793.21 480.20,792.29 496.73,790.89 513.27,790.92 529.80,789.98 546.33,789.97 562.86,788.91 579.39,788.53 595.92,788.32 612.45,788.00 628.98,787.58 645.51,787.43 662.04,787.28 678.57,786.99 695.10,787.01 711.63,786.48 728.16,786.50 744.69,786.44 761.22,786.16 777.76,785.95 794.29,785.69 810.82,785.59 827.35,785.59 843.88,785.31 860.41,785.27 876.94,785.03 893.47,785.02 910.00,784.99"/></g></svg>

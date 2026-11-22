@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="332" viewBox="0 0 960 332" role="img" aria-label="Tasa de aprendizaje por época"><rect width="100%" height="100%" fill="white"/><g font-family="Segoe UI,Arial,sans-serif" fill="#17253a"><text x="34" y="40" font-size="28" font-weight="700">Tasa de aprendizaje por época</text><text x="34" y="68" font-size="15">PKLot · Los tres grupos del optimizador tienen la misma serie</text>
+<text x="100" y="102" font-size="18" font-weight="600">Tasa de aprendizaje (×10⁻³)</text>
+<path d="M100 255H910" stroke="#dce5ef"/><text x="88" y="259" text-anchor="end" font-size="13">0,00</text>
+<path d="M100 220H910" stroke="#dce5ef"/><text x="88" y="224" text-anchor="end" font-size="13">0,50</text>
+<path d="M100 185H910" stroke="#dce5ef"/><text x="88" y="189" text-anchor="end" font-size="13">1,00</text>
+<path d="M100 150H910" stroke="#dce5ef"/><text x="88" y="154" text-anchor="end" font-size="13">1,50</text>
+<path d="M100 115H910" stroke="#dce5ef"/><text x="88" y="119" text-anchor="end" font-size="13">2,00</text>
+<text x="100" y="276" text-anchor="middle" font-size="13">1</text>
+<text x="248.77551020408163" y="276" text-anchor="middle" font-size="13">10</text>
+<text x="414.0816326530612" y="276" text-anchor="middle" font-size="13">20</text>
+<text x="579.3877551020408" y="276" text-anchor="middle" font-size="13">30</text>
+<text x="744.6938775510204" y="276" text-anchor="middle" font-size="13">40</text>
+<text x="910" y="276" text-anchor="middle" font-size="13">50</text>
+<text x="505" y="297" text-anchor="middle" font-size="13">Época</text>
+<polyline fill="none" stroke="#2563eb" stroke-width="2.6" stroke-linejoin="round" points="100.00,216.16 116.53,178.81 133.06,142.99 149.59,145.24 166.12,147.55 182.65,149.86 199.18,152.17 215.71,154.48 232.24,156.79 248.78,159.10 265.31,161.41 281.84,163.72 298.37,166.04 314.90,168.35 331.43,170.66 347.96,172.97 364.49,175.28 381.02,177.59 397.55,179.90 414.08,182.21 430.61,184.52 447.14,186.83 463.67,189.14 480.20,191.45 496.73,193.76 513.27,196.07 529.80,198.38 546.33,200.69 562.86,203.00 579.39,205.31 595.92,207.62 612.45,209.93 628.98,212.24 645.51,214.56 662.04,216.87 678.57,219.18 695.10,221.49 711.63,223.80 728.16,226.11 744.69,228.42 761.22,230.73 777.76,233.04 794.29,235.35 810.82,237.66 827.35,239.97 843.88,242.28 860.41,244.59 876.94,246.90 893.47,249.21 910.00,251.52"/></g></svg>

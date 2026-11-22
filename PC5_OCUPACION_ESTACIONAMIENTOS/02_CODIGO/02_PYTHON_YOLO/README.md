@@ -2,7 +2,8 @@
 
 ## Archivos principales
 
-- `main_entrenamiento_yolo.ipynb`: notebook principal de entrenamiento y evaluación, con celdas, metadatos y salidas preservados.
+- `main_entrenamiento_yolo.ipynb`: notebook principal y final de entrenamiento
+  y evaluación, con explicaciones, celdas, metadatos y salidas preservados.
 - `main_entrenamiento_yolo.html`: exportación del notebook principal para revisión visual; no es un notebook ejecutable.
 - `scripts_auxiliares/probar.py`: demostración local sobre una imagen.
 - `scripts_auxiliares/exportar_predicciones_yolo.py`: exporta todo `test/images` al formato que consume T6 en MATLAB.

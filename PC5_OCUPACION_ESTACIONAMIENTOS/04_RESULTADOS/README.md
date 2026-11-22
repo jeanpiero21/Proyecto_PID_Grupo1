@@ -39,6 +39,10 @@ comparación directa. Los resultados visuales por imagen se encuentran en
 
 ## 02_YOLO
 
+- `ENTRENAMIENTO/METRICAS/historial_epocas.csv`: historial completo de las 50
+  épocas de entrenamiento.
+- `ENTRENAMIENTO/GRAFICAS/`: curvas de precisión, recall, F1, pérdidas, tasa de
+  aprendizaje y matriz de confusión de YOLOv8s.
 - `METRICAS/metricas_validacion_yolo.csv`: métricas de detección obtenidas en
   la validación del entrenamiento: precisión, recall, mAP50 y mAP50-95.
 - `METRICAS/metricas_12_casos_yolo.csv`: métricas homogéneas de YOLO sobre las
