@@ -131,20 +131,32 @@ def dibujar_yolo(imagen: np.ndarray, cajas: np.ndarray, clases: np.ndarray,
     return lienzo
 
 
-def tarjeta(ruta: Path, titulo: str, ancho: int = 850, alto: int = 680) -> Image.Image:
+def tarjeta(ruta: Path, titulo: str, detalle: str = "", metricas: str = "",
+            quitar_encabezado: bool = False, ancho: int = 850,
+            alto: int = 680) -> Image.Image:
     panel = Image.open(ruta).convert("RGB")
-    panel = ImageOps.contain(panel, (ancho - 30, alto - 70), Image.Resampling.LANCZOS)
+    if quitar_encabezado and panel.height > panel.width:
+        # Las salidas MATLAB y YOLO incluyen una franja superior propia.
+        # Se retira para reemplazarla por un encabezado común y comparable.
+        panel = panel.crop((0, panel.height - panel.width, panel.width, panel.height))
+    alto_texto = 112
+    panel = ImageOps.contain(panel, (ancho - 30, alto - alto_texto - 10), Image.Resampling.LANCZOS)
     fondo = Image.new("RGB", (ancho, alto), "white")
     x = (ancho - panel.width) // 2
-    y = 55 + (alto - 65 - panel.height) // 2
+    y = alto_texto + (alto - alto_texto - panel.height) // 2
     fondo.paste(panel, (x, y))
     d = ImageDraw.Draw(fondo)
-    d.text((ancho // 2, 24), titulo, font=fuente(25, True), fill="black", anchor="mm")
+    d.text((ancho // 2, 23), titulo, font=fuente(24, True), fill="black", anchor="mm")
+    if detalle:
+        d.text((ancho // 2, 56), detalle, font=fuente(19), fill="black", anchor="mm")
+    if metricas:
+        d.text((ancho // 2, 87), metricas, font=fuente(18), fill="black", anchor="mm")
     return fondo
 
 
-def comparativa(rutas: list[Path], titulos: list[str], encabezado: str, salida: Path) -> None:
-    cards = [tarjeta(r, t) for r, t in zip(rutas, titulos)]
+def comparativa(paneles: list[tuple[Path, str, str, str, bool]],
+                encabezado: str, salida: Path) -> None:
+    cards = [tarjeta(*panel) for panel in paneles]
     margen_superior = 70
     lienzo = Image.new("RGB", (1700, 2 * 680 + margen_superior), "white")
     for i, card in enumerate(cards):
@@ -231,9 +243,17 @@ def main() -> None:
 
         carpeta_caso = casos_matlab / caso
         comparativa(
-            [ruta_imagen, carpeta_caso / "08_ground_truth.png",
-             carpeta_caso / "09_prediccion.png", salida_individual],
-            ["Imagen original", "Ground truth", "MATLAB clásico", "YOLOv8s"],
+            [
+                (ruta_imagen, "Imagen original", "Entrada común a ambos métodos", "", False),
+                (carpeta_caso / "08_ground_truth.png", "Ground truth",
+                 f"Ocupación real: {real:.1f}%", "40 cajones etiquetados", True),
+                (carpeta_caso / "09_prediccion.png", "MATLAB clásico",
+                 f"Real {real:.1f}% | Estimado {float(m['pp']):.1f}% | Error {abs(float(m['pr'])-float(m['pp'])):.1f} pp",
+                 f"Precisión {float(m['P']):.3f} | Recall {float(m['R']):.3f} | F1 {float(m['F1']):.3f}", True),
+                (salida_individual, "YOLOv8s",
+                 f"Real {real:.1f}% | Estimado {estimado:.1f}% | Error {abs(real-estimado):.1f} pp",
+                 f"Precisión {precision:.3f} | Recall {recall:.3f} | F1 {f1:.3f}", True),
+            ],
             f"Caso {caso} | Ocupación real: {real:.1f}%",
             salida_comp / f"matlab_vs_yolo_{caso}.jpg",
         )
