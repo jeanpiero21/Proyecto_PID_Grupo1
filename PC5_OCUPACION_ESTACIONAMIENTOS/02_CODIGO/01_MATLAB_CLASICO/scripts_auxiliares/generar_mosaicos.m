@@ -4,7 +4,7 @@
 
 clear; clc; close all;
 
-raizCodigo = fileparts(mfilename('fullpath'));
+raizCodigo = fileparts(fileparts(mfilename('fullpath')));
 raizEntrega = fullfile(raizCodigo, '..', '..');
 carpetaComparacion = fullfile(raizEntrega, '03_IMAGENES_REFERENCIALES', ...
     '03_FINALES', 'COMPARACION');

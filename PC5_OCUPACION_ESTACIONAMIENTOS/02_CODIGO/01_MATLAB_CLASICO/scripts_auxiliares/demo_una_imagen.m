@@ -2,6 +2,8 @@
 %  Requiere haber corrido main.m al menos una vez (genera resultados/calibracion.mat).
 %  Ojo: el sistema conoce solo las cámaras calibradas (PUCPR, UFPR04, UFPR05).
 clear; clc; close all;
+carpetaScript = fileparts(mfilename('fullpath'));
+addpath(fileparts(carpetaScript));
 cfg = config();
 addpath(fullfile(cfg.raiz, 'funciones'));
 archivoCalib = fullfile(cfg.rutaSalida, 'calibracion.mat');

@@ -17,7 +17,7 @@ cfg.maxImgsCalib = Inf;       % p.ej. 600 para calibrar más rápido
 cfg.recalibrar   = false;     % true = rehacer la calibración aunque exista calibracion.mat
 
 % ---------------- Preprocesamiento (S3) ----------------
-cfg.preproc = 'gauss';        % 'gauss' | 'ninguno' | 'mediana' | 'histeq'  (comparar_preprocesamiento.m prueba todos)
+cfg.preproc = 'gauss';        % 'gauss' | 'ninguno' | 'mediana' | 'histeq'  (scripts_auxiliares/comparar_preprocesamiento.m prueba todos)
 
 % ---------------- Cajón ----------------
 cfg.factorROI = 0.6;          % se analiza el 60 % central de cada caja (las cajas se solapan por la perspectiva)

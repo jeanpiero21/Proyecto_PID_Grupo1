@@ -13,7 +13,7 @@
 %   8) T5: detección automática de cajones sin etiquetas (variantes).
 %   9) (Opcional) Comparación con YOLO con las mismas métricas.
 %  10) Demo sobre la misma imagen que usa probar.py.
-%  (T3, preprocesamiento: script aparte comparar_preprocesamiento.m)
+%  (T3, preprocesamiento: script aparte scripts_auxiliares/comparar_preprocesamiento.m)
 %
 %  Requisitos: MATLAB R2020b o superior + Image Processing Toolbox.
 %

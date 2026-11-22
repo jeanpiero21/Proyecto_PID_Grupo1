@@ -28,7 +28,7 @@ El método principal es **HOG contra referencias del cajón vacío**, con un umb
 
 Es el punto de entrada del experimento completo.
 
-1. **Prepara las carpetas de salida.** Crea `tablas`, `figuras`, `imagenes_intermedias` y `deteccion_auto_cajones`.
+1. **Prepara las carpetas de salida.** Crea `METRICAS`, `GRAFICAS`, `IMAGENES_INTERMEDIAS` y `DETECCION_AUTO_CAJONES`.
 2. **Carga o genera la calibración.** Si `calibracion.mat` es compatible, lo reutiliza; en caso contrario llama a `calibrarSistema`.
 3. **Evalúa el split de prueba.** `evaluarSplit` procesa todas las imágenes una sola vez y almacena los indicadores.
 4. **T1 — Compara técnicas.** Evalúa HOG, NCC-Sobel, gradientes, resta, bordes, color y voto combinado.
@@ -57,7 +57,7 @@ Centraliza los parámetros para no dispersarlos por las funciones.
 
 Si cambia el preprocesamiento o un parámetro del cajón, se debe recalibrar.
 
-### `comparar_preprocesamiento.m`
+### `scripts_auxiliares/comparar_preprocesamiento.m`
 
 Genera la tabla T3. Ejecuta el mismo experimento con cuatro entradas:
 
@@ -68,7 +68,7 @@ Genera la tabla T3. Ejecuta el mismo experimento con cuatro entradas:
 
 Cada opción vuelve a calibrarse para que la comparación sea justa. Por eso tarda aproximadamente cuatro veces más que una calibración normal.
 
-### `demo_una_imagen.m`
+### `scripts_auxiliares/demo_una_imagen.m`
 
 Sirve para la exposición:
 
@@ -77,6 +77,12 @@ Sirve para la exposición:
 3. Ejecuta `analizarImagen`.
 4. Dibuja los cajones libres y ocupados.
 5. Si existe una etiqueta, muestra también los aciertos y errores.
+
+### `scripts_auxiliares/generar_mosaicos.m`
+
+Reconstruye automáticamente los 12 mosaicos individuales y el mosaico resumen
+a partir de las imágenes intermedias y `metricas_por_imagen.csv`. Reserva espacio
+para los encabezados, títulos y porcentajes para evitar textos recortados.
 
 ## 3. Calibración y organización de datos
 

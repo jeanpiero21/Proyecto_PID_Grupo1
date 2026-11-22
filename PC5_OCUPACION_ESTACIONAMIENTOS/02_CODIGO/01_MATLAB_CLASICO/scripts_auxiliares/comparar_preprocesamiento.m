@@ -3,10 +3,12 @@
 %  Para cada opción se recalibra y se evalúa en test con los mismos indicadores.
 %  Tarda unas 4 veces lo que tarda la calibración de main.m.
 clear; clc; close all;
+carpetaScript = fileparts(mfilename('fullpath'));
+addpath(fileparts(carpetaScript));
 cfg = config();
 addpath(fullfile(cfg.raiz, 'funciones'));
-carpetaTab = fullfile(cfg.rutaSalida, 'tablas');
-carpetaFig = fullfile(cfg.rutaSalida, 'figuras');
+carpetaTab = fullfile(cfg.rutaSalida, 'METRICAS');
+carpetaFig = fullfile(cfg.rutaSalida, 'GRAFICAS');
 if ~isfolder(carpetaTab), mkdir(carpetaTab); end
 if ~isfolder(carpetaFig), mkdir(carpetaFig); end
 

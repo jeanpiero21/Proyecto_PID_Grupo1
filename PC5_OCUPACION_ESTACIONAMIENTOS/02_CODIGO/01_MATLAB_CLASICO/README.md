@@ -21,11 +21,10 @@ Las salidas se generan directamente en `04_RESULTADOS/01_MATLAB_CLASICO` para ma
 ## Scripts
 
 - `main.m`: entrada principal; calibra en `valid`, evalúa `test`, genera CSV, gráficas e imágenes intermedias.
-- `demo_una_imagen.m`: demostración sobre una imagen.
-- `comparar_preprocesamiento.m`: compara variantes de preprocesamiento.
-- `generar_mosaicos.m`: reconstruye los 12 mosaicos y el resumen sin recortar títulos.
 - `config.m`: rutas y parámetros del experimento.
-- `a.m`: script auxiliar original; se conserva sin reinterpretarlo.
+- `scripts_auxiliares/demo_una_imagen.m`: demostración sobre una imagen.
+- `scripts_auxiliares/comparar_preprocesamiento.m`: compara variantes de preprocesamiento.
+- `scripts_auxiliares/generar_mosaicos.m`: reconstruye los 12 mosaicos y el resumen sin recortar títulos.
 - `funciones/`: 42 funciones auxiliares del pipeline.
 
 El pipeline incluye filtrado gaussiano, histogramas, Otsu, morfología, watershed, Sobel/Canny, HOG propio, calibración por cámara y métricas de clasificación/ocupación.
@@ -38,6 +37,9 @@ main
 ```
 
 Para evitar recalibrar, `cfg.recalibrar` está en `false` y se conservan los archivos `.mat` disponibles. La compatibilidad de esos archivos depende de que el dataset y la versión esperada coincidan.
+
+Los scripts de `scripts_auxiliares/` detectan automáticamente la carpeta raíz,
+por lo que pueden ejecutarse directamente sin moverlos al nivel principal.
 
 ## Salidas conservadas
 
