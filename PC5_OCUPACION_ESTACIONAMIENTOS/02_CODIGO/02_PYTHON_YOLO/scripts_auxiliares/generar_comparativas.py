@@ -35,10 +35,10 @@ COLORES_EVALUACION = {
 
 
 def argumentos() -> argparse.Namespace:
-    carpeta = Path(__file__).resolve().parent
-    entrega = carpeta.parent.parent
+    carpeta_codigo = Path(__file__).resolve().parent.parent
+    entrega = carpeta_codigo.parent.parent
     p = argparse.ArgumentParser(description="Genera resultados comparables para 12 casos.")
-    p.add_argument("--pesos", type=Path, default=carpeta / "pesos" / "best.pt")
+    p.add_argument("--pesos", type=Path, default=carpeta_codigo / "pesos" / "best.pt")
     p.add_argument("--imagenes", type=Path, default=entrega / "05_DATOS_PRUEBA" / "imagenes")
     p.add_argument("--anotaciones", type=Path, default=entrega / "05_DATOS_PRUEBA" / "anotaciones")
     p.add_argument("--conf", type=float, default=0.25)
@@ -233,8 +233,8 @@ def escribir_csv(ruta: Path, filas: list[dict[str, object]]) -> None:
 
 def main() -> None:
     args = argumentos()
-    carpeta_script = Path(__file__).resolve().parent
-    entrega = carpeta_script.parent.parent
+    carpeta_codigo = Path(__file__).resolve().parent.parent
+    entrega = carpeta_codigo.parent.parent
     salida_yolo = entrega / "03_IMAGENES_REFERENCIALES" / "03_FINALES" / "YOLO"
     salida_comp = entrega / "03_IMAGENES_REFERENCIALES" / "03_FINALES" / "COMPARACION" / "MATLAB_VS_YOLO"
     casos_matlab = entrega / "03_IMAGENES_REFERENCIALES" / "03_FINALES" / "COMPARACION" / "casos_detallados"

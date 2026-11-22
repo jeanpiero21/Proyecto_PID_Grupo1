@@ -12,7 +12,7 @@ Cada línea sigue el formato:
 clase x_centro y_centro ancho alto
 ```
 
-Las coordenadas están normalizadas. Consulte `02_CODIGO/02_PYTHON_YOLO/data.yaml` para los nombres de clase declarados por el dataset.
+Las coordenadas están normalizadas. Consulte `02_CODIGO/02_PYTHON_YOLO/configuracion_dataset/data.yaml` para los nombres de clase declarados por el dataset.
 
 ## Dataset completo
 

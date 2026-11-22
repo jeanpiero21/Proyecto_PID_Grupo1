@@ -8,7 +8,7 @@ Estas son métricas de **detección de objetos**. No deben confundirse con las
 métricas por cajón fijo y el error porcentual de ocupación del método clásico.
 
 `PREDICCIONES_TEST` es la salida reproducible de
-`exportar_predicciones_yolo.py`. Se deja sin archivos porque el dataset completo
+`scripts_auxiliares/exportar_predicciones_yolo.py`. Se deja sin archivos porque el dataset completo
 no forma parte de la entrega. Al generarlos, `main.m` activa automáticamente T6.
 
 `METRICAS/metricas_12_casos_yolo.csv` contiene la evaluación reproducible sobre
@@ -18,4 +18,4 @@ evaluación conjunta de ambas clases.
 
 Las 12 imágenes finales están en
 `03_IMAGENES_REFERENCIALES/03_FINALES/YOLO` y fueron generadas por
-`generar_comparativas.py` sin volver a entrenar el modelo.
+`scripts_auxiliares/generar_comparativas.py` sin volver a entrenar el modelo.

@@ -42,7 +42,7 @@ cfg.auto.iou           = 0.3;          % IoU mínima para contar un cajón detec
 
 % ---------------- Comparación con YOLO (opcional) ----------------
 cfg.rutaPredYOLO = fullfile(raiz, '..', '..', '04_RESULTADOS', ...
-    '02_YOLO', 'PREDICCIONES_TEST');  % .txt de exportar_predicciones_yolo.py
+    '02_YOLO', 'PREDICCIONES_TEST');  % .txt de scripts_auxiliares/exportar_predicciones_yolo.py
 cfg.iouDeteccion = 0.5;
 
 % ---------------- Etiquetas erróneas detectadas en test ----------------
@@ -55,6 +55,6 @@ cfg.imagenesExcluir = {'2012-10-30_14_17_16', '2012-11-06_13_43_31', '2012-11-06
     '2012-11-07_10_09_27', '2012-11-07_11_44_32', '2012-11-07_12_59_36', '2012-11-07_13_19_38', ...
     '2012-11-07_13_34_38', '2012-11-07_14_29_41', '2012-11-07_14_59_42', '2012-11-07_19_39_55'};
 
-% Imagen de la demo final (la misma que usa probar.py con YOLO)
+% Imagen de la demo final (la misma que usa scripts_auxiliares/probar.py con YOLO)
 cfg.imagenDemo = '2013-04-13_15_45_10_jpg.rf.3be1e71f3af841bc5e5e346118ceac52.jpg';
 end

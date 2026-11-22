@@ -17,14 +17,15 @@ from ultralytics import YOLO
 
 def argumentos() -> argparse.Namespace:
     carpeta_script = Path(__file__).resolve().parent
-    raiz_entrega = carpeta_script.parent.parent
+    carpeta_codigo = carpeta_script.parent
+    raiz_entrega = carpeta_codigo.parent.parent
     parser = argparse.ArgumentParser(
         description="Exporta las predicciones del test para compararlas en MATLAB."
     )
     parser.add_argument(
         "--pesos",
         type=Path,
-        default=carpeta_script / "pesos" / "best.pt",
+        default=carpeta_codigo / "pesos" / "best.pt",
         help="Ruta al archivo best.pt.",
     )
     parser.add_argument(

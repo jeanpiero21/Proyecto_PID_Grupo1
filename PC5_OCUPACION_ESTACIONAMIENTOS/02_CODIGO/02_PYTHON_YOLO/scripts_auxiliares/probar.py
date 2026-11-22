@@ -1,12 +1,18 @@
 import cv2
+from pathlib import Path
 from ultralytics import YOLO
 
-# 1. Cargar el nuevo modelo (Asegúrate de colocar tu nuevo best.pt)
-model = YOLO('modelo_entrenado/best.pt')
+# Rutas calculadas desde la ubicación del script.
+carpeta_codigo = Path(__file__).resolve().parent.parent
+raiz_entrega = carpeta_codigo.parent.parent
+
+# 1. Cargar el modelo entrenado incluido en la entrega.
+model = YOLO(str(carpeta_codigo / 'pesos' / 'best.pt'))
 
 # 2. Cargar una imagen de prueba del dataset
-imagen_prueba = 'test/images/2013-04-13_15_45_10_jpg.rf.3be1e71f3af841bc5e5e346118ceac52.jpg'
-imagen = cv2.imread(imagen_prueba)
+imagen_prueba = raiz_entrega / '05_DATOS_PRUEBA' / 'imagenes' / \
+    '2013-04-13_17_20_12_jpg.rf.3c93cc15e9b709fe6dd4b389e7636ccc.jpg'
+imagen = cv2.imread(str(imagen_prueba))
 
 print("Analizando estacionamiento con el modelo PKLot...")
 # conf=0.4 filtra las detecciones dudosas
@@ -67,5 +73,7 @@ print("Presiona cualquier tecla en la imagen para cerrarla y guardar.")
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
-cv2.imwrite("resultado_ocupacion_pklot.jpg", imagen_expandida)
+salida = raiz_entrega / '03_IMAGENES_REFERENCIALES' / '03_FINALES' / 'YOLO' / \
+    'resultado_ocupacion_pklot.jpg'
+cv2.imwrite(str(salida), imagen_expandida)
 print("Imagen guardada como 'resultado_ocupacion_pklot.jpg'")

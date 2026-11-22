@@ -1,10 +1,10 @@
 function r = evaluarYOLO(calib, cfg)
-%EVALUARYOLO Evalúa las predicciones de YOLO (exportadas con exportar_predicciones_yolo.py)
+%EVALUARYOLO Evalúa las predicciones de YOLO (exportadas con scripts_auxiliares/exportar_predicciones_yolo.py)
 %   con las MISMAS métricas que el método clásico, para que la comparación sea justa.
 %   Archivo por imagen: <nombre>.txt con filas "clase xc yc w h conf" (normalizado).
 %   (a) Detección de cajones: emparejamiento 1 a 1 con IoU >= cfg.iouDeteccion.
 %   (b) Por clase: además el par emparejado debe tener la misma clase (libre / ocupado).
-%   (c) % de ocupación "crudo" (como probar.py): ocupados / (ocupados + libres detectados).
+%   (c) % de ocupación "crudo" (como scripts_auxiliares/probar.py): ocupados / (ocupados + libres detectados).
 %   (d) Híbrido: cada cajón del mapa fijo toma la clase de la caja YOLO que más se le superpone
 %       (IoU >= 0.3; si no hay ninguna se asume libre) -> denominador fijo.
 lista = listarSplit(cfg.rutaDataset, cfg.splitEval);

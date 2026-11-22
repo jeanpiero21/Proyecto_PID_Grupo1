@@ -4,11 +4,12 @@
 
 - `pid_2.ipynb`: notebook original, con celdas, metadatos y salidas preservados.
 - `pid_2.html`: exportación para revisión visual; no es un notebook ejecutable.
-- `probar.py`: inferencia local original.
-- `exportar_predicciones_yolo.py`: exporta todo `test/images` al formato que consume T6 en MATLAB.
-- `generar_comparativas.py`: genera resultados YOLO y comparativas MATLAB--YOLO para las 12 imágenes del entregable.
+- `scripts_auxiliares/probar.py`: demostración local sobre una imagen.
+- `scripts_auxiliares/exportar_predicciones_yolo.py`: exporta todo `test/images` al formato que consume T6 en MATLAB.
+- `scripts_auxiliares/generar_comparativas.py`: genera resultados YOLO y comparativas MATLAB--YOLO para las 12 imágenes del entregable.
 - `pesos/best.pt`: pesos entrenados (aprox. 22.5 MB).
-- `data.yaml`: definición original del dataset.
+- `configuracion_dataset/data.yaml`: definición original del dataset.
+- `configuracion_dataset/`: información original de Roboflow y del dataset.
 - `requirements.txt`: dependencias directas verificadas en el notebook/script.
 
 ## Entorno
@@ -23,7 +24,7 @@ python -m pip install -r requirements.txt
 
 ## Inferencia
 
-`probar.py` contiene rutas del equipo original. Antes de ejecutarlo, configure la ruta de la imagen y confirme que el modelo apunta a `pesos/best.pt`. El notebook usa rutas `/content/...` propias de Colab.
+`scripts_auxiliares/probar.py` usa rutas relativas a la entrega y toma una imagen de `05_DATOS_PRUEBA`. El notebook conserva rutas `/content/...` propias de Colab.
 
 No se debe ejecutar el entrenamiento para revisar la entrega. El HTML permite comprobar el proceso ya realizado y `resultado_ocupacion_pklot.jpg` conserva una salida real.
 
@@ -32,7 +33,7 @@ No se debe ejecutar el entrenamiento para revisar la entrega. El HTML permite co
 Con el dataset completo disponible:
 
 ```powershell
-python exportar_predicciones_yolo.py --imagenes "RUTA_AL_DATASET/test/images"
+python scripts_auxiliares/exportar_predicciones_yolo.py --imagenes "RUTA_AL_DATASET/test/images"
 ```
 
 Los TXT se guardan por defecto en
@@ -45,4 +46,4 @@ validación del entrenamiento están separadas en
 
 El dataset se descargó mediante Roboflow y usa anotaciones YOLO. El notebook original contenía una clave de API escrita en una celda. La copia incluida conserva sus celdas, metadatos y salidas, pero la credencial fue reemplazada por `ROBOFLOW_API_KEY_REDACTED` para permitir su publicación segura. Use una credencial propia mediante un secreto o variable de entorno para descargar nuevamente el dataset.
 
-El `data.yaml` conserva rutas relativas a `../train`, `../valid` y `../test`; el dataset completo no forma parte de esta entrega.
+`configuracion_dataset/data.yaml` conserva rutas relativas a `../train`, `../valid` y `../test`; el dataset completo no forma parte de esta entrega.

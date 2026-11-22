@@ -1,7 +1,7 @@
 # Predicciones del split test
 
 Aquí se generan los archivos `<nombre_imagen>.txt` mediante
-`exportar_predicciones_yolo.py`. Cada fila contiene:
+`scripts_auxiliares/exportar_predicciones_yolo.py`. Cada fila contiene:
 
 ```text
 clase x_centro y_centro ancho alto confianza

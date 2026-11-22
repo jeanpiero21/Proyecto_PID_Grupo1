@@ -12,7 +12,7 @@
 %   7) Imágenes intermedias (una imagen por cámara).
 %   8) T5: detección automática de cajones sin etiquetas (variantes).
 %   9) (Opcional) Comparación con YOLO con las mismas métricas.
-%  10) Demo sobre la misma imagen que usa probar.py.
+%  10) Demo sobre la misma imagen que usa scripts_auxiliares/probar.py.
 %  (T3, preprocesamiento: script aparte scripts_auxiliares/comparar_preprocesamiento.m)
 %
 %  Requisitos: MATLAB R2020b o superior + Image Processing Toolbox.
@@ -248,7 +248,7 @@ if ~isempty(archivosPredYOLO)
         cfg.iouDeteccion, ry.det.precision, ry.det.recall, ry.det.f1);
     fprintf('  clase libre  : P = %.3f  R = %.3f\n', ry.libre.precision, ry.libre.recall);
     fprintf('  clase ocupado: P = %.3f  R = %.3f\n', ry.ocupado.precision, ry.ocupado.recall);
-    fprintf('%% de ocupación "crudo" (como probar.py): MAE = %.2f pp\n', ry.ocupCrudo.MAE);
+    fprintf('%% de ocupación "crudo" (como scripts_auxiliares/probar.py): MAE = %.2f pp\n', ry.ocupCrudo.MAE);
     TY = array2table(filaMetricas(ry.hibrido, ry.ocupHibrido), 'VariableNames', nombresVar);
     TY = addvars(TY, "YOLOv8 + mapa fijo (híbrido)", "Deep learning", 'Before', 1, ...
         'NewVariableNames', {'Tecnica', 'Curso'});
@@ -258,10 +258,10 @@ if ~isempty(archivosPredYOLO)
     if ~isfolder(cfg.rutaComparacion), mkdir(cfg.rutaComparacion); end
     writetable(T1y, fullfile(cfg.rutaComparacion, 'T6_clasico_vs_yolo.csv'));
 else
-    fprintf('\n(Sin predicciones de YOLO en %s: corre exportar_predicciones_yolo.py para comparar.)\n', cfg.rutaPredYOLO);
+    fprintf('\n(Sin predicciones de YOLO en %s: corre scripts_auxiliares/exportar_predicciones_yolo.py para comparar.)\n', cfg.rutaPredYOLO);
 end
 
-%% 10) DEMO: la misma imagen que usa probar.py -------------------------------
+%% 10) DEMO: la misma imagen que usa scripts_auxiliares/probar.py ------------
 % Cerramos con una escena fácil de mostrar en la exposición: cajas verdes para
 % libres, rojas para ocupados y el porcentaje total en el título.
 rutaDemo = fullfile(cfg.rutaDataset, cfg.splitEval, 'images', cfg.imagenDemo);
